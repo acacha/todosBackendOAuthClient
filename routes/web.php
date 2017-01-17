@@ -19,7 +19,6 @@ Route::get('/', function () {
 //Route::get('/auth/callback', 'OAuthController@callback');
 
 Route::get('/redirect', function () {
-
 //    if (userHaveToken()) {
 //
 //    } else {
@@ -35,15 +34,15 @@ Route::get('/redirect', function () {
 
 });
 
-Route::get('/redirect2', function () {
+Route::get('/redirect_implicit', function () {
 
 //    if (userHaveToken()) {
 //
 //    } else {
     $query = http_build_query([
-        'client_id' => '1',
-        'redirect_uri' => 'http://oauthclient.dev:8082/auth/callback',
-        'response_type' => 'token',
+        'client_id' => '4',
+        'redirect_uri' => 'http://localhost:8082/auth/callback',
+        'response_type' => 'token', //implicit
         'scope' => '',
     ]);
 
@@ -53,6 +52,7 @@ Route::get('/redirect2', function () {
 });
 
 Route::get('/auth/callback', function () {
+    dd("prova");
     $http = new GuzzleHttp\Client;
     $response = $http->post('http://localhost:8081/oauth/token', [
         'form_params' => [
@@ -87,6 +87,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
     #adminlte_routes
+    Route::get('implicit', 'ImplicitController@index')->name('implicit');
+
     Route::get('tasks', 'TasksController@index')->name('tasks');
 
 
