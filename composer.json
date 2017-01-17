@@ -11,7 +11,8 @@
         "barryvdh/laravel-ide-helper": "^2.2",
         "guzzlehttp/guzzle": "^6.2",
         "laravel/framework": "5.3.*",
-        "spatie/laravel-menu": "^2.0"
+        "spatie/laravel-menu": "^2.0",
+        "spatie/laravel-permission": "^1.6"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

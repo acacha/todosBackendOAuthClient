@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Route::get('/redirect', 'OAuthcontroller@redirect');
+//Route::get('/auth/callback', 'OAuthController@callback');
+
 Route::get('/redirect', function () {
 
 //    if (userHaveToken()) {
@@ -22,12 +25,29 @@ Route::get('/redirect', function () {
 //    } else {
         $query = http_build_query([
             'client_id' => '1',
-            'redirect_uri' => 'http://oauthclient.dev:8082/auth/callback',
+            'redirect_uri' => 'http://oauthclient.dev:8081/auth/callback',
             'response_type' => 'code',
             'scope' => '',
         ]);
 
-        return redirect('http://localhost:8081/oauth/authorize?'.$query);
+        return redirect('http://todos.dev:8080/oauth/authorize?'.$query);
+//    }
+
+});
+
+Route::get('/redirect2', function () {
+
+//    if (userHaveToken()) {
+//
+//    } else {
+    $query = http_build_query([
+        'client_id' => '1',
+        'redirect_uri' => 'http://oauthclient.dev:8082/auth/callback',
+        'response_type' => 'token',
+        'scope' => '',
+    ]);
+
+    return redirect('http://todos.dev:8080/oauth/authorize?'.$query);
 //    }
 
 });
@@ -47,17 +67,18 @@ Route::get('/auth/callback', function () {
     $json = json_decode((string) $response->getBody(), true);
 
     $access_token = $json["access_token"];
+
 //    dd($access_token);
     //TODO guardar access_token a base de dades
-
-    $response2 = $http->get('http://localhost:8081/api/v1/task', [
-        'headers' => [
-            'X-Requested-With' => 'XMLHttpRequest',
-            'Authorization' => 'Bearer ' . $access_token
-        ],
-    ]);
-    $json2 = json_decode((string) $response2->getBody(), true);
-    dd($json2);
+//
+//    ;$response2 = $http->get('http://localhost:8081/api/v1/task', [
+//        'headers' => [
+//            'X-Requested-With' => 'XMLHttpRequest',
+//            'Authorization' => 'Bearer ' . $access_token
+//        ],
+//    ]);
+//    $json2 = json_decode((string) $response2->getBody(), true);
+//    dd($json2)
 });
 Route::group(['middleware' => 'auth'], function () {
     //    Route::get('/link1', function ()    {
