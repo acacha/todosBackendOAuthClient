@@ -41,7 +41,7 @@ Route::get('/redirect_implicit', function () {
 //    } else {
     $query = http_build_query([
         'client_id' => '4',
-        'redirect_uri' => 'http://localhost:8082/auth/callback',
+        'redirect_uri' => 'http://oauthclient.dev:8081/implicit',
         'response_type' => 'token', //implicit
         'scope' => '',
     ]);
